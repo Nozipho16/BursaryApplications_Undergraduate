@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bursary Application Form - 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+        }
+        h1, h3 {
+            text-align: center;
+        }
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bursary Application Form - 2025</h1>
+    <form>
+        <!-- Section A: Particulars of Applicant -->
+        <h3>A. Particulars of Applicant</h3>
+        <label for="title">Title:</label>
+        <select id="title" name="title">
+            <option value="Mr">Mr</option>
+            <option value="Ms">Ms</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Dr">Dr</option>
+        </select>
+
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname" required>
+
+        <label for="firstNames">First Names:</label>
+        <input type="text" id="firstNames" name="firstNames" required>
+
+        <label for="idNumber">Identity Number:</label>
+        <input type="text" id="idNumber" name="idNumber" required>
+
+        <label for="nationality">Nationality:</label>
+        <input type="text" id="nationality" name="nationality" required>
+
+        <label for="province">Province:</label>
+        <input type="text" id="province" name="province" required>
+
+        <label for="municipality">Municipality:</label>
+        <input type="text" id="municipality" name="municipality" required>
+
+        <label for="area">Area:</label>
+        <input type="text" id="area" name="area">
+
+        <label for="disability">Disability:</label>
+        <select id="disability" name="disability">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+        </select>
+
+        <!-- Section B: High School Information -->
+        <h3>B. High School Information</h3>
+        <label for="schoolName">Name of the School:</label>
+        <input type="text" id="schoolName" name="schoolName" required>
+
+        <label for="subjects">Subjects (list them):</label>
+        <textarea id="subjects" name="subjects"></textarea>
+
+        <!-- Section C: Degree/Diploma Details -->
+        <h3>C. Degree/Diploma Details</h3>
+        <label for="university">University/Institution:</label>
+        <input type="text" id="university" name="university" required>
+
+        <label for="academicYear">Academic Year of Study:</label>
+        <select id="academicYear" name="academicYear">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+
+        <label for="studyField">Field of Study:</label>
+        <select id="studyField" name="studyField">
+            <option value="BSc Eng. Agricultural">BSc Eng. Agricultural</option>
+            <option value="Bachelor of Veterinary Science">Bachelor of Veterinary Science</option>
+            <option value="BSc Agric. Food Science">BSc Agric. Food Science</option>
+            <!-- Add more fields as required -->
+        </select>
+
+        <label for="motivation">Motivation for Chosen Field:</label>
+        <textarea id="motivation" name="motivation"></textarea>
+
+        <!-- Section D: Map -->
+        <h3>Capture Your Location</h3>
+        <div id="map"></div>
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+        <script>
+            var map = L.map('map').setView([-30.5595, 22.9375], 6); // Center on South Africa
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+            }).addTo(map);
+
+            var marker;
+            map.on('click', function(e) {
+                if (marker) map.removeLayer(marker);
+                marker = L.marker(e.latlng).addTo(map);
+                document.getElementById('latitude').value = e.latlng.lat;
+                document.getElementById('longitude').value = e.latlng.lng;
+            });
+        </script>
+
+        <!-- Section E: Declaration -->
+        <h3>Declaration</h3>
+        <label>
+            <input type="checkbox" id="declaration" name="declaration" required>
+            I certify that the information supplied is correct.
+        </label>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit Application</button>
+    </form>
+</body>
+</html>
